@@ -1,0 +1,396 @@
+\newSection{Розробка шаблону}{sec:sec3}{}
+
+Почати роботу з виготовлення шаблону потрібно з вимог до завдання, а саме: потрібно розробити шаблон для курсових робіт з дотриманням ДСТУ 3008:2015. Ось деякі плавила оформлення:
+
+\begin{itemize}
+	\item Аркуші формату А4 (210х297 мм).
+	\item Шрифт 14 розміру з 1,5 інтервалом.
+	\item  віддаль між рядками повинна бути однакова і рівна 8-10 мм.
+	\item  відстань між заголовками підрозділів або пунктів і подальшим або попереднім текстом 15-20 мм;
+	\item  відстань між назвою розділу і назвою підрозділу або пункту 18-22 мм;
+	\item  абзацний відступ повинен бути однаковим впродовж усього тексту записки і дорівнювати 10-15 мм.
+\end{itemize}
+
+Ще одною умовою є додавання рамок до роботи. І останній пункт, додатковий - зверстати титульну сторінку.
+
+\subsection{Написання преамбули}
+
+\subsubsection{Клас документа та кодування}
+
+Для звичайної курсової роботи, без рамок, можна було б скористатися класом документа \textit{article} або \textit{extarticle}, проте довелося б реалізовувати рамки вручну. На просторах інтернету можна знайти колекцію пакетів \textit{eskdx}, який надає нам такий функціонал. Колекція пакетів надає 3 класи: \textit{eskdtext}(для текстової документації), \textit{eskdgraph}(для креслення схем) і \textit{eskdtab}(для документів, разбитих на графи). Для нашого випадку підходить eskdtext, його і використаємо.
+
+\newpage
+
+Ось як буде виглядати підключення класу:
+
+\begin{lstlisting}
+		\documentclass[14pt,ukrainian,utf8, simple, pointsection,
+		floatsection ]{eskdtext} 
+\end{lstlisting}
+
+В додаткових параметрах вказано 14 розмір шрифту, українську мову(вибір тільки з 2, інша - російська), кодування, simple - відображати тільки основні графи, останні два параметри вказують на нумерування пунктів та фігур в межах секцій.
+
+Для роботи з кирилицею потрібно підключити мовний пакет. На вибір є 2 основних: \textit{babel} та \textit{poliglossia}, скористаємося другим. Перевага другого пакету в тому що кириличні символи кодуються правильно, навідміну від babel, який робить заміну \textit{і} на латиницю. Це допоможе при проходженні роботи на антиплагіат.
+
+Підключаємо його та ще пару пакетів для кодування кирилиці:
+
+\begin{lstlisting}
+		\usepackage{fontspec}
+		\usepackage{xecyr}
+		\usepackage{polyglossia}
+		\setmainlanguage{ukrainian}
+		\usepackage{xunicode, xltxtra}
+\end{lstlisting}
+
+
+\subsubsection{Специфічні налаштування класу}
+
+
+Пакети ESKDX надають багато налаштувань, їх ми будемо зберігати в окремому файлі з назвою \textit{ESKDXconfig.tex}. Він є частиною преамбули тож і підключатиметься там. В цьому файлі зберігатимуться попередні команди і також для налаштування шрифтів.
+
+\begin{lstlisting}
+		\defaultfontfeatures{Ligatures=TeX}
+		\setmainfont{Times New Roman} 
+		\newfontfamily\cyrillicfont{Times New Roman}
+		\setotherlanguage{english}
+		\setmonofont{FreeMono}
+\end{lstlisting}
+
+Вказавши деякі команди можна створити титульну сторінку, проте її формати не підходить, тому ми будемо писати свою титулку в наступному підрозділі. Зараз тільки вкажемо деякі необхідні команди для задання інформації на рамках.
+\begin{lstlisting}
+			\ESKDsignature{ КПКН 20.055.014.000 ПЗ
+			\ESKDcolumnIX{{\small ТНТУ, ФІС, КН СН-31}}
+			\ESKDtitle{\ESKDfontIII Створення шаблону для курсової в Latex}
+			\ESKDauthor{ **** А. В. }
+			\ESKDchecker{ **** О. Б. }
+			
+\end{lstlisting}
+
+Останнє в цьому файлі це налаштування стилів відображення секцій:
+
+\begin{lstlisting}
+			\ESKDsectAlign{section}{Center}
+			\ESKDsectStyle{section}{\normalsize \bfseries \uppercase}
+			\ESKDsectStyle{subsection}{\normalsize \bfseries}
+			\ESKDsectSkip{section}{0pt}{0.8cm}
+			\ESKDsectSkip{subsection}{0.8cm}{0.5cm}
+			\ESKDsectSkip{subsubsection}{0.5cm}{0.1pt}
+\end{lstlisting}
+
+Секції центруємо, робимо 14 шрифтом, жирний та все у верхньому регістрі. Підсекції - те саме, тільки у звичайному регісті. Також налаштовано відступи між секціями.
+
+Для цього файлу - це все, повний обсяг буде наведено в додатках.
+
+\subsubsection{Створення титульної сторінки}
+
+Налаштування титульної сторінки будуть знаходитися в окремому файлі \textit{title.tex}.
+
+Спершу налаштуємо колонтитули, оскільки це найлегше що можна зробити зараз:
+\begin{lstlisting}
+		\usepackage{fancyhdr} % Колонтитули
+		\pagestyle{fancy}
+		
+		\fancypagestyle{firststyle}{
+		\renewcommand{\headrulewidth}{0pt}
+		\fancyfoot{}
+		\cfoot{Тернопіль 2020}
+		}
+		\renewcommand{\headrulewidth}{0pt}
+		\fancyfoot{}
+		\fancyhead{}
+\end{lstlisting}
+
+Використали пакет \textit{fancyhdr} і створили стиль колонтитула для сторінки в якому по центрі внизу записали необхідні дані. 
+
+Створимо нову команду для титульної сторінки, яка буде приймати аргументи для їх встановлення на сторінку: найменування вищого навчального закладу, кафедра, назва роботи, тема, дисципліна, і т.д. Також буде створено ще 2 команди для завдання та календарного плану. Команди можуть приймати до 9 параметрів, в нашому випадку їх є більше, тому скористаємося пакетом \textit{keyval}, який дозволить використовувати опційні параметри, які не обмежуються кількістю.
+Оголошення змінних та задання стандартних значень:
+
+\begin{lstlisting}
+			\define@key{titlee}{university}{\def\tl@university{#1}}
+			\define@key{titlee}{katedra}{\def\tl@katedra{#1}}
+			\define@key{titlee}{type}{\def\tl@type{#1}}
+			\define@key{titlee}{discipline}{\def\tl@discipline{#1}}
+			\define@key{titlee}{thema}{\def\tl@thema{#1}}
+			\define@key{titlee}{kurs}{\def\tl@kurs{#1}}
+			\define@key{titlee}{group}{\def\tl@group{#1}}
+			\define@key{titlee}{specialty}{\def\tl@specialty{#1}}
+			\define@key{titlee}{author}{\def\tl@author{#1}}
+			\define@key{titlee}{posada}{\def\tl@posada{#1}}
+			\define@key{titlee}{kerivnyk}{\def\tl@kerivnyk{#1}}
+			\define@key{titlee}{pidpys}{\def\tl@pidpys{#1}}
+			
+			% zavdannia
+			\define@key{titlee}{semestr}{\def\tl@semestr{#1}}
+			\define@key{titlee}{date}{\def\tl@date{#1}}
+			\define@key{titlee}{fulldate}{\def\tl@fulldate{#1}}
+			%kalendar
+			\define@key{titlee}{enddate}{\def\tl@enddate{#1}}
+			\define@key{titlee}{sources}{\def\tl@sources{#1}}
+			\define@key{titlee}{zapyska}{\def\tl@zapyska{#1}}
+			\define@key{titlee}{graphika}{\def\tl@graphika{#1}}
+			
+			\setkeys{titlee}{university= University ,katedra = Kафедра,
+			type= Курсова робота ,thema= {Тема \\ \ } , discipline = Предмет,
+			kurs=№, group=ke-4, specialty=122 - CS, author=\qquad \qquad
+			\qquad \qquad,posada=,kerivnyk=Teacher, semestr=4, date=,
+			sources=sources, graphika=,enddate=,fulldate=, zapyska={\
+			\quad \\ \ \\ \ \\ \ \\ \ \\ \ }, pidpys=}%			
+\end{lstlisting}
+
+
+Створюємо нові команди, всі будуть приймати один опційний аргумент, який потім в \verb|\setkeys{}|встановиться у відповідні змінні. Для використання змінних потрібно щоб вони перебували в групі, це оголошується \verb|\begingroup%|:
+
+\begin{lstlisting}
+			\newcommand{\setzavdannia}[1][]{
+			\begingroup%
+			\setkeys{titlee}{#1}% Set new keys
+			...content
+			\endgroup%
+			}
+\end{lstlisting}
+
+Далі проведено опис основних моментів створення титульної сторінки, для детальнішого огляду див. додатки.
+
+Починаємо зверху, де треба вказати навч. заклад та кафедру:
+
+\begin{lstlisting}
+		\centering
+		Міністерство освіти і науки України\\
+		\tl@university
+		\hrule
+		{\scriptsize (повне найменування вищого навчального закладу)}
+		\hspace{0.2cm}
+		Кафедра \tl@katedra
+		\hrule
+		{\scriptsize (повна назва кафедри)}
+\end{lstlisting}
+
+Команда \verb|\centering| відцентрує текст. У 2 рядку встановлюємо на параметр на його місце та малюємо горизонтальну лінію на всю ширину - \verb|\hrule|. \verb|\scriptsize| зменшує шрифт на дуже маленький.
+
+Результат:
+
+\addimghere{3}{1}{Верхня частина титулки}{}
+
+Наступним створюємо тип та назву роботи:
+
+\begin{lstlisting}
+			\vspace{3cm}
+			\begin{center}
+			\textbf{ \large \tl@type}
+			\end{center}
+			
+			з  \textbf{<<\tl@discipline>>}
+			\hrule
+			
+			{\scriptsize (назва дисципліни)}
+			\hspace{0.2cm}
+			\setlength{\unitlength}{1cm}
+			
+			\begin{picture}(0,0)
+				\put(-9,-1.85){\line(1,0){18}}
+				\put(-9,-0.75){\line(1,0){18}}
+				\put(-9,-1.3){\line(1,0){18}}
+			\end{picture}
+			
+			на тему : \textbf{<<\tl@thema>>}
+			}			
+					
+\end{lstlisting}
+
+Команди \verb|\vspace{}, \hspace{}| роблять відступ вертикально та горизонтально на вказану відстань. Середовище \verb|\begin{picture}(0,0)| Робить область для створення простих графіків, фігур. В дужках вказано її розміри, в нас нема розміру для зручності, оскільки будуть малюватися лінії серед тексту. 
+
+Команда \textit{put} ставить певну фігуру за вказаними координатами, її можна використовувати тільки в середовищі \textit{picture}. \textit{Line} - фігура лінії, в дужках осі, в параметрі довжина.
+
+Ось результат:
+
+\addimghere{4}{1}{Назва роботи, тема}{}
+
+Перейдемо до останньої частини, де вказується інформація про автора та керівника. 
+
+\begin{lstlisting}
+			\vspace{5cm}
+			\hfill
+			\begin{minipage}{0.5\linewidth}
+				\begin{tabular}{lp{0.1\linewidth}ccp{0.145\linewidth}}
+					Студента & \centering \tl@kurs & курсу, & групи & \tl@group
+					\\
+					\cline{2-2} \cline{5-5}
+				\end{tabular}
+				\vspace{0.1cm}
+				\begin{tabular}{lc}
+					спеціальності & \tl@specialty \\
+					\hline
+					\tl@author    & \tl@pidpys    \\
+					\hline
+				\end{tabular}
+				\vspace{-0.8cm}\hspace{0.3cm}	{ \centering\scriptsize (прізвище 
+				та ініціали)  \hspace{2cm}(підпис студента)} \\
+				
+				\begin{tabular}{p{0.3\textwidth}p{0.6\textwidth}}
+					Керівник: & \tl@posada \\
+					\cline{2-2}
+					\multicolumn{2}{c}{\tl@kerivnyk}\\
+					\hline
+				\end{tabular}
+				\centering
+				{\scriptsize (посада, вчене звання, науковий ступінь, прізвище
+				та ініціали) }
+			\end{minipage}
+\end{lstlisting}
+
+\addimghere{5}{1}{Остання частина титульної сторінки}{}
+
+
+Поєднання \textit{begin\{minipage\}} та \textit{hfill} робить окрему область сторінки на половину її ширини та розташовує її справа. Для організації розмітки використовується таблиця, командами \verb|\cline{2-2} \cline{5-5}|, можна підкреслити необхідні стовпці в рядку.
+
+Поєднуючи таблиці та малювання ліній, було зроблено необхідні лінії для 3 сторінок: титулка, завдання. календарний план.
+
+\subsection{Завершення преамбули}
+
+Для роботи із зображеннями підключаємо пакет \textit{graphicx}, вказуємо їхнє розташування:
+
+\begin{lstlisting}
+			\usepackage{graphicx} % Вставка картинок 
+			\graphicspath{{images/}}
+\end{lstlisting}
+
+Напишемо пару нових команд для вставлення картинок. Перша команда вставляє одне зображення в зручному для Latex місці, приймає 4 команди: назва, ширина, підпис, позначка. Друга команда робить все те саме, проте вставляє картинку так як вона є в тексті. Остання команда вставляє 2 зображення поруч з одним підписом до них.
+
+\begin{lstlisting}
+			\newcommand{\addimg}[4]{ % add one img
+				\begin{figure}
+					\centering
+					\includegraphics[width=#2\linewidth]{#1}
+					\caption{#3} \label{#4}
+				\end{figure}
+			}
+			\newcommand{\addimghere}[4]{ % add img here
+				\begin{figure}[H]
+					\centering
+					\includegraphics[width=#2\linewidth]{#1}
+					\caption{#3} \label{#4}
+				\end{figure}
+			}
+			\newcommand{\addtwoimghere}[4]{ % two img side by side
+				\begin{figure}[H]
+					\centering
+					\begin{subfigure}[t]{0.45\textwidth}
+						\includegraphics[width=\textwidth]{#1}
+					\end{subfigure}
+					\begin{subfigure}[t]{0.45\textwidth}
+						\centering
+						\includegraphics[width=\textwidth]{#2}
+						
+					\end{subfigure}
+					\caption{#3}\label{#4}
+				
+				\end{figure}
+			}
+\end{lstlisting}
+
+Створимо ще дві функції для роботи із секціями. Команда \textit{newSection} додає нову секція з нової сторінки, також є позначення для посилання на неї, останнє - це застосування розширеної рамки і вказанням того самого розділу. Друга команда схожа, тільки секції будуть без нумерації.
+\begin{lstlisting}
+			\newcommand{\newSection}[3]{
+				\newpage
+				\section{\uppercase{#1}}
+				\label{#2}
+				\ESKDcolumnI{#3#1}
+				\ESKDthisStyle{formII}
+			}
+			
+			\newcommand{\anonsection}[2]{
+				\newpage
+				\phantomsection
+				\addcontentsline{toc}{section}{\uppercase{#1}}
+				\section*{\uppercase{#1}}
+				\ESKDcolumnI{\uppercase{#1}}
+				\label{#2}
+				\ESKDthisStyle{formII}
+			}
+\end{lstlisting}
+
+Один дуже важливий нюанс. Пакет ESKDX не надає можливості зміни даних в рамках в тілі документа, як це зробили ми, це призведе до помилки. Один з варіантів вирішення є написання власного стилю рамки, проте це дуже важко і потребує поглиблених знань пакету. Другий варіант - зміна пари рядків коду в початкових файлах пакету. Під час компіляції можна побачити що викликається команда збереження рамки в преамбулі та застосовується без змін далі, тому треба замість застосування - заново намалювати. Отже у пакетному файлі \textit{eskdstamp.sty} потрібно знайти 2 форму рамок(\verb|\ESKD@stamp@ii@box|) та скопіювати код створення рамки в місце де застосовується збережена рамка. 
+
+Налаштуємо підписи до малюнків та таблиць:
+
+\begin{lstlisting}
+			\RequirePackage{caption}
+			\DeclareCaptionLabelSeparator{defffis}{ -- } % Розділювач
+			\captionsetup[figure]{justification=centering, labelsep=defffis,
+			 format=plain} % Підпис малюнка по центру
+			\captionsetup[table]{justification=raggedleft, labelsep=defffis, 
+			format=plain, singlelinecheck=false} % Підпис таблиці справа
+			\addto\captionsukrainian{\renewcommand{\figurename}{Рисунок}} 
+			% Ім' я фігури
+\end{lstlisting}
+
+Оформимо відображення початкового коду, використовуючи пакет \textit{listings}:
+
+\begin{lstlisting}
+			\usepackage{listings}
+			\lstset{
+				basicstyle=\small\ttfamily,
+				breaklines=true,
+				tabsize=2,                  
+				extendedchars=\true,
+				keepspaces=true,
+				literate={--}{{-{}-}}2,     
+				literate={---}{{-{}-{}-}}3, 
+				texcl=true, }
+\end{lstlisting}
+
+Останнє це оформлення секцій у вступі, зробимо так щоб відображалися крапки від секції до номера сторінки і щоб усе було нежирним:
+
+\begin{lstlisting}
+			\makeatletter
+				%format sections in tableofcontents
+				\renewcommand{\l@section}
+					{\@dottedtocline{1}{0em}{1.25em}}
+				\renewcommand{\l@subsection}
+					{\@dottedtocline{2}{1.25em}{1.75em}}
+				\renewcommand{\l@subsubsection}
+					{\@dottedtocline{3}{2.75em}{2.6em}}
+			\makeatother
+\end{lstlisting}
+
+Преамубла буде в окремому файлі \textit{preambule.tex}. Для вставлення інших файлів використовуєтсья команда \textit{input} або \textit{include}. Враховуючи титульну сторінку і конфіг класу, остаточний вигляд преамбули:
+
+\begin{lstlisting}
+			\documentclass[14pt,ukrainian,utf8, simple, 
+			pointsection,floatsection ]{eskdtext} 
+			
+			\include{inc/preambula}
+			
+			\input{inc/title}
+			
+			\include{inc/ESKDXconfig}
+\end{lstlisting}
+
+\subsection{Тіло документа}
+
+В першу чергу необхідно застосувати створені команди для титульної сторінки і завдання з календарним планом, передаючи необхідні параметри:
+
+\addimghere{6}{1}{Використання команд для перших 3 сторінок}{}
+
+Команда \verb|\ESKDthisStyle{empty}| робить стиль сторінки без рамки. Для зручності ці команди буде винесено в окремий файл \textit{titlepage.tex}. Також розділи і все інше буде окремо:
+
+\begin{lstlisting}
+			\begin{document}
+			
+			\renewcommand{\ESKDcolumnVIIname}{\ESKDfontIII Аркуш}
+			\input{inc/titlepage}
+			\input{chapters/0-1-referat}
+			\ESKDthisStyle{formII}
+			
+			\tableofcontents
+			\input{chapters/0-intro}
+			\input{chapters/1-chap}
+			\input{chapters/2-chap} 
+			\input{chapters/3-chap}
+			\input{chapters/5-bibl}
+			%\ESKDappendix{ тип }{ заголовок }
+			
+			\end{document}
+\end{lstlisting}
+
+Для створення змісту використовується команда \verb|\tableofcontents|, для бібліографії - середовище \verb|\begin{thebibliography}| з пунктами \textit{bibitem} всередині.

@@ -1,0 +1,338 @@
+\usepackage{keyval}% http://ctan.org/pkg/keyval
+\usepackage{lmodern} % font-size
+
+\usepackage{multirow}
+\newcolumntype{C}[1]{>{\centering\arraybackslash}m{#1}}
+%\usepackage{enumerate}
+
+\usepackage{fancyhdr} % Колонтитулы
+\pagestyle{fancy}
+
+\fancypagestyle{firststyle}{
+	\renewcommand{\headrulewidth}{0pt}
+	\fancyfoot{}
+	\cfoot{Тернопіль 2020}
+}
+\renewcommand{\headrulewidth}{0pt}
+\fancyfoot{}
+\fancyhead{}
+
+\makeatletter
+
+\define@key{titlee}{university}{\def\tl@university{#1}}
+\define@key{titlee}{katedra}{\def\tl@katedra{#1}}
+\define@key{titlee}{type}{\def\tl@type{#1}}
+\define@key{titlee}{discipline}{\def\tl@discipline{#1}}
+\define@key{titlee}{thema}{\def\tl@thema{#1}}
+\define@key{titlee}{kurs}{\def\tl@kurs{#1}}
+\define@key{titlee}{group}{\def\tl@group{#1}}
+\define@key{titlee}{specialty}{\def\tl@specialty{#1}}
+\define@key{titlee}{author}{\def\tl@author{#1}}
+\define@key{titlee}{posada}{\def\tl@posada{#1}}
+\define@key{titlee}{kerivnyk}{\def\tl@kerivnyk{#1}}
+\define@key{titlee}{pidpys}{\def\tl@pidpys{#1}}
+
+% zavdannia
+\define@key{titlee}{semestr}{\def\tl@semestr{#1}}
+\define@key{titlee}{date}{\def\tl@date{#1}}
+\define@key{titlee}{fulldate}{\def\tl@fulldate{#1}}
+%kalendar
+\define@key{titlee}{enddate}{\def\tl@enddate{#1}}
+\define@key{titlee}{sources}{\def\tl@sources{#1}}
+\define@key{titlee}{zapyska}{\def\tl@zapyska{#1}}
+\define@key{titlee}{graphika}{\def\tl@graphika{#1}}
+
+\setkeys{titlee}{university= University ,katedra= Kафедра,
+type= Курсова робота ,thema= {Тема \\ \ } , discipline=Предмет, kurs=№, 
+group=ke-4, specialty=122 - CS, author=\qquad \qquad \qquad
+\qquad,posada=,kerivnyk=Teacher, semestr=4, date=,
+sources=sources, graphika=,enddate=,fulldate=, zapyska={\ \quad \\ \ \\
+\ \\ \ \\ \ \\ \ },pidpys=}%
+
+
+\newcommand{\setzavdannia}[1][]{
+	\begingroup%
+	\setkeys{titlee}{#1}% Set new keys
+
+	{\linespread{1}\selectfont
+		\begin{center}
+			Міністерство освіти і науки України\\
+			\tl@university
+		\end{center}
+		\raggedright
+		\setlength{\unitlength}{1cm}
+		\begin{picture}(0,0)
+			\put(2.45,-0.66){\line(1,0){15.05}}
+			\put(2.7,-1.26){\line(1,0){14.8}}
+			\put(0,-1.88){\line(1,0){17.5}}
+			\put(3.15,-2.54){\line(1,0){14.35}}
+		\end{picture}
+
+		Кафедра \hspace{1cm} \tl@katedra
+
+		Дисципліна \hspace{1cm} \tl@discipline
+
+		Спеціальність \hspace{1cm} \tl@specialty
+
+		\hspace{-0.35cm}
+		\begin{tabular}{lp{0.05\linewidth}cC{0.1\linewidth}
+		cC{0.05\textwidth}}
+
+			Курс & \centering \tl@kurs & Група & \tl@group & Семестр 
+			& \tl@semestr \\
+			\cline{2-2} \cline{4-4} \cline{6-6}
+		\end{tabular}
+		\vspace{1.5cm}
+		\begin{center}
+			ЗАВДАННЯ\\
+			на курсову роботу\\
+			Студента\\
+			\underline{\tl@author}\\
+			{\small (прізвище, ім’я, по батькові)}
+		\end{center}
+
+		%\setlength{\unitlength}{1cm}
+		\begin{picture}(0,0)
+			\put(4.1,-0.66){\line(1,0){13.8}}
+			\put(0.75,-1.26){\line(1,0){17.15}}
+
+			\put(0.75,-1.88){\line(1,0){17.15}}
+			\put(10,-3.1){\line(1,0){7.9}}
+			\put(6.1,-3.7){\line(1,0){11.8}}
+			\put(0.75,-4.36){\line(1,0){17.15}}
+			\put(3.4,-5.55){\line(1,0){14.5}}
+			\put(0.75,-6.2){\line(1,0){17.15}}
+			\put(0.75,-6.84){\line(1,0){17.15}}
+			\put(0.75,-7.46){\line(1,0){17.15}}
+			\put(0.75,-8.01){\line(1,0){17.15}}
+			\put(0.75,-8.68){\line(1,0){17.15}}
+			\put(0.75,-9.3){\line(1,0){17.15}}
+
+		\end{picture}
+		\begin{enumerate}[label={\arabic*.},leftmargin=1cm]
+			\item Тема роботи: \tl@thema
+
+			      \vspace{0.66cm}
+
+			\item Строк здачі студентом закінченої роботи \quad  \tl@enddate
+			\item Вихідні дані до роботи: \tl@sources
+			      \vspace{0.66cm}
+			\item Зміст розрахунково - пояснювальної записки (перелік питань, 
+			які підлягають розробці): \tl@zapyska
+
+			      \begin{picture}(0,0)
+
+				      \put(-0.2,-1.28){\line(1,0){17.15}}
+				      \put(4.75,-1.88){\line(1,0){12.15}}
+
+			      \end{picture}
+			\item  Перелік графічного матеріалу (із точним зазначенням
+			 обов’язкових креслень): \tl@graphika
+
+			\item Дата видачі завдання: \quad \tl@date
+		\end{enumerate}
+	}
+	\endgroup%
+}
+\newcommand{\settitle}[2][]{%
+
+	\begingroup%
+	\setkeys{titlee}{#1}% Set new keys
+	{\linespread{1}\selectfont
+		\centering
+		Міністерство освіти і науки України\\
+	
+		\tl@university
+		\hrule
+	
+		{\scriptsize (повне найменування вищого навчального закладу)}
+
+		\hspace{0.2cm}
+		Кафедра \tl@katedra
+		\hrule
+	
+		{\scriptsize (повна назва кафедри)}
+
+		\vspace{3cm}
+		\begin{center}
+			\textbf{ \large \tl@type}
+		\end{center}
+
+		з  \textbf{<<\tl@discipline>>}
+
+		\hrule
+		%	\vspace{0.2cm}
+		{\scriptsize (назва дисципліни)}
+		\hspace{0.2cm}
+
+
+		\setlength{\unitlength}{1cm}
+		\begin{picture}(0,0)
+			\put(-9,-1.85){\line(1,0){18}}
+			\put(-9,-0.75){\line(1,0){18}}
+			\put(-9,-1.3){\line(1,0){18}}
+
+		\end{picture}
+
+
+		на тему : \textbf{<<\tl@thema>>}
+
+	}
+	{\linespread{1.2}\selectfont
+		\vspace{5cm}
+		\hfill
+		\begin{minipage}{0.5\linewidth}
+
+
+			\begin{tabular}{lp{0.1\linewidth}ccp{0.145\linewidth}}
+				Студента & \centering \tl@kurs & курсу, & групи & \tl@group \\
+				\cline{2-2} \cline{5-5}
+			\end{tabular}
+
+			\vspace{0.1cm}
+			\begin{tabular}{lc}
+				спеціальності & \tl@specialty \\
+				\hline
+				\tl@author    & \tl@pidpys    \\
+				\hline
+			\end{tabular}
+			\vspace{-0.8cm}\hspace{0.3cm}	{ \centering\scriptsize (прізвище
+			та ініціали)  \hspace{2cm}(підпис студента)} \\
+
+			\begin{tabular}{p{0.3\textwidth}p{0.6\textwidth}}
+				Керівник: & \tl@posada \\
+				\cline{2-2}
+				\multicolumn{2}{c}{\tl@kerivnyk}\\
+				\hline
+			\end{tabular}
+			\centering
+			{\scriptsize (посада, вчене звання, науковий ступінь, прізвище
+			та ініціали) }
+
+			\setlength{\unitlength}{1cm}
+			\begin{picture}(0,0)
+				\put(5.5, 0){\line(1,0){3.45}}
+				\put(7.35, -0.7){\line(1,0){1.6}}
+				\put(3, -0.7){\line(1,0){1.6}}
+				\put(-2.3, -1.65){{\fontsize{10}{10} {\selectfont Члени комісії
+				:}}}
+			\end{picture}
+			\raggedright
+			{\fontsize
+			{10}{10} \selectfont Оцінка за національною шкалою:}
+
+			\begin{tabular}{lp{0.15\textwidth}lp{0.15\textwidth}}
+				\fontsize
+				{10}{10} \selectfont Кількість балів: &   & \fontsize{10}{10}
+			 \selectfont Оцінка ECTS &
+			\end{tabular}
+
+			%\hspace{-2.2cm}\vspace{0.2cm}
+			\hspace{0.2cm}
+			\begin{tabular}{p{0.26\textwidth}p{0.001\textwidth}
+			C{0.56\textwidth}}
+				  &   & \tl@kerivnyk \\
+				\cline{1-1} \cline{3-3}
+			\end{tabular}
+			\vspace{-0.89cm}	\centering
+
+			{\scriptsize \hspace{-0.7cm}	(підпис)  \hspace{2.4cm}   (прізвище
+			 та ініціали) }
+
+			\hspace{0.2cm}
+			\begin{tabular}{p{0.26\textwidth}p{0.001\textwidth}
+			C{0.56\textwidth}}
+				  &   &   \\
+				\cline{1-1} \cline{3-3}
+			\end{tabular}
+			\vspace{-0.89cm}	\centering
+
+			{\scriptsize \hspace{-0.7cm}	(підпис)  \hspace{2.4cm}   (прізвище
+			 та ініціали) }
+
+			\hspace{0.2cm}
+			\begin{tabular}{p{0.26\textwidth}p{0.001\textwidth}C
+			{0.56\textwidth}}
+				  &   &   \\
+				\cline{1-1} \cline{3-3}
+			\end{tabular}
+			\vspace{-0.89cm}\centering
+
+			{\scriptsize \hspace{-0.7cm}	(підпис)  \hspace{2.4cm}   (прізвище
+			та ініціали) }
+		\end{minipage}
+
+	}
+
+
+	\thispagestyle{firststyle} % колонтитул
+
+	\endgroup%
+
+}
+
+\newcommand{\setkalendar}[2][]{
+	\newgeometry{right=3cm,left=1cm}
+
+	\begingroup%
+	\setkeys{titlee}{#1}% Set new keys
+	{\linespread{1}\selectfont
+		\begin{center}
+			\textbf{Календарний план}
+		\end{center}
+		\centering
+		\begin{tabulary}{1.0\textwidth}{|C{1cm}|L|C{3cm}|C{2.5cm}|}
+			\hline
+			\fontsize{10}{10} \selectfont № п/п &
+			 \fontsize{10}{10} \selectfont Назва етапів курсового проекту
+			( роботи )& \fontsize{10}{10} \selectfont Строк виконання етапів
+			проекту (роботи) & \fontsize{10}{10} \selectfont Примітки \\
+			\hline
+			#2
+			& & & \\ \hline
+			& & & \\ \hline
+			& & & \\ \hline
+			& & & \\ \hline
+			& & & \\ \hline
+			& & & \\ \hline
+
+
+		\end{tabulary}
+
+		\vspace{1cm}\hspace{-0.5cm}
+		\raggedright
+
+		\begin{tabular}{p{2cm}p{5cm}p{2cm}C{5cm}}
+			Студент &   &   & \tl@author \\
+			\cline{2-2} \cline{4-4}
+		\end{tabular}
+		\centering
+
+		{\scriptsize \hspace{3.5cm}	(підпис)  \hspace{5.4cm}   (прізвище, 
+		ім’я, по батькові) }
+		\begin{tabular}{p{2cm}p{5cm}p{2cm}C{5cm}}
+			Керівник &   &   & \tl@kerivnyk \\
+			\cline{2-2} \cline{4-4}
+		\end{tabular}
+		\centering
+
+		{\scriptsize \hspace{3.5cm}	(підпис)  \hspace{5.4cm}   (прізвище,
+		ім’я, по батькові) }
+
+		\hspace{0.5cm}
+		\raggedright
+		\vspace{1cm}
+		\begin{tabular}{c C{5cm} }
+			Дата & \tl@fulldate \\
+			\cline{2-2}
+		\end{tabular}
+	}
+	\endgroup%
+	\restoregeometry
+}
+
+\makeatother
+
+
+
+

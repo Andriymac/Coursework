@@ -1,0 +1,150 @@
+\newSection{Порівняння шаблону з іншими	аналогами}{sec:sec4}{}
+
+В минулому розділі було описано створення шаблону для курсових робіт. Тепер маючи готовий продукт потрібно провести його порівняння з іншими роботами.
+
+В мережі інтернет за пошуком \textit{"master thesis latex template"} було знайдено декілька варіантів. Для порівняння вибрано 1 зарубіжний та 2 СНГ аналоги.
+
+\begin{itemize}
+	\item Masters/Doctoral Thesis за посиланням: \href{http://www.latextemplates.com/template/masters-doctoral-thesis}{http://www.latextemplates.com/template
+	/masters-doctoral-thesis}
+	\item xetex-eskdx --- \href{https://github.com/welldan97/xetex-eskdx}{https://github.com/welldan97/xetex-eskdx}
+	\item master-thesis --- \href{https://github.com/Amet13/master-thesis}{https://github.com/Amet13/master-thesis}
+\end{itemize}
+
+\subsection{Порівняння класів}
+
+
+\begin{table}[H]
+	\caption{Класи шаблонів}\label{tab:tab1}
+	\centering
+	\begin{tabular}{C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}}
+		\toprule
+		\textbf{Masters/Doctoral Thesis} & \textbf{xetex-eskdx} &  \textbf{master-thesis} & \textbf{Наш шаблон}\\
+		
+		\midrule
+		MastersDoctoralThesis & eskdx & extarticle & eskdx\\ 
+		\bottomrule
+	\end{tabular}
+
+\end{table}
+Почнемо порівняння з класів документа. Як видно в таблиці \ref{tab:tab1} тільки 3 шаблон має стандартний клас, всі інші мають спеціальні класи для відповідних робіт. Оцінити клас 1 шаблону важко, оскільки треба читати документацію по ньому, а з eskdx я вже знайомий.  Скажу, що нестандартні класи самі використовують вбудовані класи. В Masters/Doctoral Thesis є один недолік,а саме те що він налаштований на англійську мову, тому не підійде для української. Перевага eskdx для нас в тому що він має рамки в собі, якщо тепер обрати між 2 варіантом і \newpage \noindent 4, \ то,\ \  різниці\  нема, проте \ \  ми \ \ змінювали \  вихідний\  код \ для \ більшого \  контролю над розширеними рамками в розділах, тому зі слабкою перевагою  можна обрати наш шаблон.
+
+
+\subsection{Титульні сторінки}
+Порівняння за титульними сторінками, таблиця \ref{tab:tab2}. В "master-thesis" відсутня верстка титульної сторінки. Це з одного боку перевага(можна просто вставити готовий pdf), а з іншого недолік -- нема контролю. В нашому шаблоні зроблено як того вимагає університет мій університет, також якщо потрібно вставити свій титульний аркуш то можна просто не викликати команди створення титулки, а підключити необхідний файл. В Masters/Doctoral Thesis титульна сторінка також реалізована засобами \LaTeX за своїми стандартами. "xetex-eskdx" використовує титульний аркуш що надає клас eskdx, нам, на жаль, він не підходить, тому можна або самому написати(як ми це зробили) або вставити готовий файл. Вибір залежить від того куди ми пишемо роботу, якщо за кордоном то 1 варіант підходить, якщо в Україні, то наш шаблон підходить чудово.
+
+\begin{table}[H]
+	\caption{Титульний аркуш}\label{tab:tab2}
+	\centering
+	\begin{tabular}{C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}}
+		\toprule
+		\textbf{Masters/Doctoral Thesis} & \textbf{xetex-eskdx} &  \textbf{master-thesis} & \textbf{Наш шаблон}\\
+		\midrule
+		Зарубіжні стандарти & ГОСТ & --- & ДСТУ(ТНТУ ім.І.Пулюя)\\
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Структурування}
+
+Порівняння за структурою, див. табл. \ref{tab:tab3}. Всі шаблони мають розбиття на файли, що надає зручність. Проте в "Masters/Doctoral Thesis" в головному файлі понад 200 рядків коду, що я вважаю, є мінусом. У "xetex-eskdx" нема файлів прикладу для секцій, лише підключені налаштування у преамбулу. У "master-thesis" та створеному шаблоні є хороша структура: підключення преамбули із зовнішнього файлу й інші налаштування, розбиття на секції --- кожна секція окремий файл.
+\begin{table}[H]
+	\caption{Структура файлів і секцій}\label{tab:tab3}
+	\centering
+	\begin{tabular}{C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}}
+		\toprule
+		\textbf{Masters/Doctoral Thesis} & \textbf{xetex-eskdx} &  \textbf{master-thesis} & \textbf{Наш шаблон}\\
+		\midrule
+		Добре структуровано & Присутня, но мінімальна & Добре структуровано & Добре структуровано \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\subsection{Власні функції шаблонів}
+
+Порівняння користувацьких команд для полегшення під час роботи. В першому шаблоні було знайдено декілька команд для спрощення набору:
+\begin{lstlisting}
+			\newcommand{\keyword}[1]{\textbf{#1}}
+			\newcommand{\tabhead}[1]{\textbf{#1}}
+			\newcommand{\code}[1]{\texttt{#1}}
+			\newcommand{\file}[1]{\texttt{\bfseries#1}}
+			\newcommand{\option}[1]{\texttt{\itshape#1}}
+\end{lstlisting}
+
+"xetex-eskdx" не має жодних команд для полегшення верстки. "Master-thesis" та наш шаблон мають команди додавання зображень та модифіковані секцій. 
+\begin{table}[H]
+	\caption{Функції для спрощення набору}\label{tab:tab4}
+	\centering
+	\begin{tabular}{C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}}
+		\toprule
+		\textbf{Masters/Doctoral Thesis} & \textbf{xetex-eskdx} &  \textbf{master-thesis} & \textbf{Наш шаблон}\\
+		\midrule
+		Мінімальні & відсутні & Присутні &  Присутні\\ 
+		\bottomrule
+	\end{tabular}
+\end{table}
+
+\newpage
+Наш шаблон: 
+
+\begin{lstlisting}
+			\newcommand{\newSection}[3]{
+			\newpage
+			\section{\uppercase{#1}}
+			\label{#2}
+			\ESKDcolumnI{#3#1}
+			\ESKDthisStyle{formII}
+			}
+			
+			\newcommand{\anonsection}[2]{
+			\newpage
+			\phantomsection
+			\addcontentsline{toc}{section}{\uppercase{#1}}
+			\section*{\uppercase{#1}}
+			\ESKDcolumnI{\uppercase{#1}}
+			\label{#2}
+			\ESKDthisStyle{formII}
+			}
+\end{lstlisting}
+
+Master-thesis:
+
+\begin{lstlisting}
+			\newcommand{\anonsection}[1]{
+			\phantomsection % Корректный переход по ссылкам в содержании
+			\paragraph{\centerline{{#1}}\vspace{1em}}
+			\addcontentsline{toc}{section}{#1}
+			}
+			% Секция для аннотации (она не включается в содержание)
+			\newcommand{\annotation}[1]{
+			\paragraph{\centerline{{#1}}\vspace{1em}}
+			}
+			% Секция для списка иллюстративного материала
+			\newcommand{\lof}{
+			\phantomsection
+			\listoffigures
+			\addcontentsline{toc}{section}{\listfigurename}
+			}
+			% Секция для списка табличного материала
+			\newcommand{\lot}{
+			\phantomsection
+			\listoftables
+			\addcontentsline{toc}{section}{\listtablename}
+			}
+\end{lstlisting}
+
+\subsection{Документація}
+
+Порівняння документацій шаблонів. Явним лідером серед варіантів є "Masters/Doctoral Thesis". В ньому було створено документацію на основі цього самого шаблону. "Master-thesis" йде заразу за минулим шаблоном маючи дещо меншу документацію, проте досить простий та зрозумілий шаблон. Останні два --- без документації. Отож, явний фаворит в цьому порівнянні це 1 варіант.
+
+\begin{table}[H]
+	\caption{Документація шаблонів}\label{tab:tab5}
+	\centering
+	\begin{tabular}{C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}C{0.2\textwidth}}
+		\toprule
+		\textbf{Masters/Doctoral Thesis} & \textbf{xetex-eskdx} &  \textbf{master-thesis} & \textbf{Наш шаблон}\\
+		\midrule
+		Створена використовуючи шаблон & Шаблон & Мінімальний опис + сам шаблон & Сам шаблон \\ 
+		\bottomrule
+	\end{tabular}
+\end{table}

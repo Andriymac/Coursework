@@ -1,0 +1,105 @@
+\usepackage[figure,table]{totalcount} % counting figures, tables
+\usepackage{eskdtotal} % total figures, tables...
+
+\makeatletter
+%format sections in tableofcontents
+\renewcommand{\l@section}{\@dottedtocline{1}{0em}{1.25em}}
+\renewcommand{\l@subsection}{\@dottedtocline{2}{1.25em}{1.75em}}
+\renewcommand{\l@subsubsection}{\@dottedtocline{3}{2.75em}{2.6em}}
+\makeatother
+
+\usepackage{hyperref}
+\hypersetup{
+	colorlinks=false,
+	hidelinks,
+	bookmarks=true,
+	,unicode=true
+	,pdfcreator={XeLaTeX}
+	,pdfa=true}
+
+\renewcommand{\baselinestretch}{1.5} % Полуторный межстрочный интервал
+\usepackage{graphicx}
+\graphicspath{{images/}}
+
+\usepackage[none]{hyphenat} % без переносів
+\sloppy
+
+% Формат подрисуночных надписей
+\RequirePackage{caption}
+\DeclareCaptionLabelSeparator{defffis}{ -- } % Разделитель
+\captionsetup[figure]{justification=centering,
+labelsep=defffis, format=plain} % Подпись рисунка по центру
+\captionsetup[table]{justification=raggedleft, labelsep=defffis, 
+format=plain, singlelinecheck=false} % Подпись таблицы справа
+\addto\captionsukrainian{\renewcommand{\figurename}{Рисунок}}
+
+\usepackage{float}
+\usepackage{wrapfig}
+\usepackage{subcaption}
+\usepackage{array,tabularx,tabulary,booktabs}
+\newcommand{\newSection}[3]{
+	\newpage
+	\section{\uppercase{#1}}
+	\label{#2}
+	\ESKDcolumnI{#3#1}
+	\ESKDthisStyle{formII}
+}
+\newcommand{\anonsection}[2]{
+	\newpage
+	\phantomsection
+	\addcontentsline{toc}{section}{\uppercase{#1}}
+	\section*{\uppercase{#1}}
+	\ESKDcolumnI{\uppercase{#1}}
+	\label{#2}
+	\ESKDthisStyle{formII}
+}
+% Списки
+\usepackage{enumitem}
+\setlist[enumerate,itemize]{leftmargin=1.5cm} % Отступы в списках
+\setlist{nosep} % no separations
+
+\usepackage{listings} % Оформление исходного кода
+\lstset{
+basicstyle=\small\ttfamily, % Размер и тип шрифта
+breaklines=true,            % Перенос строк
+tabsize=2,                  % Размер табуляции
+extendedchars=\true,
+keepspaces=true,
+%frame=single,               % Рамка
+literate={--}{{-{}-}}2,     % Корректно отображать двойной дефис
+literate={---}{{-{}-{}-}}3,  % Корректно отображать тройной дефис
+texcl=true,
+}
+\newcommand{\addimg}[4]{ 
+	\begin{figure}
+		\centering
+		\includegraphics[width=#2\linewidth]{#1}
+		\caption{#3} \label{#4}
+	\end{figure}
+}
+\newcommand{\addimghere}[4]{ 
+	\begin{figure}[H]
+		\centering
+		\includegraphics[width=#2\linewidth]{#1}
+		\caption{#3} \label{#4}
+	\end{figure}
+}
+\newcommand{\addtwoimghere}[4]{
+	\begin{figure}[H]
+		\centering
+		\begin{subfigure}[t]{0.45\textwidth}
+			\includegraphics[width=\textwidth]{#1}
+
+			%\subcaption{}\label{sub:2a}
+		\end{subfigure}
+		\begin{subfigure}[t]{0.45\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{#2}
+			%	\subcaption{}\label{sub:2b}
+		\end{subfigure}
+		\caption{#3}\label{#4}
+
+	\end{figure}
+}
+
+

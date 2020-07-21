@@ -1,0 +1,29 @@
+\usepackage{fontspec}
+\usepackage{xecyr}
+\usepackage{polyglossia}
+\setmainlanguage{ukrainian}
+\usepackage{xunicode, xltxtra}
+\usepackage{cmap}	
+\defaultfontfeatures{Ligatures=TeX}
+
+\setmainfont{Times New Roman} 
+\newfontfamily\cyrillicfont{Times New Roman}
+\setotherlanguage{english}
+\setmonofont{FreeMono}
+
+%% Название документа
+\ESKDtitle{\ESKDfontIII Створення шаблону для курсової в Latex}
+\ESKDauthor{ ****** А.В. }
+\ESKDchecker{****** О.Б. }
+
+\ESKDsignature{ КПКН 20.055.014.000 ПЗ }
+\ESKDcolumnIX{{\small ТНТУ, ФІС, КН ****}}
+
+\renewcommand{\ESKDcolumnVIIname}{\ESKDfontII Аркуш}
+
+\ESKDsectAlign{section}{Center}
+\ESKDsectStyle{section}{\normalsize \bfseries \uppercase}
+\ESKDsectStyle{subsection}{\normalsize \bfseries}
+\ESKDsectSkip{section}{0pt}{0.8cm}
+\ESKDsectSkip{subsection}{0.8cm}{0.5cm}
+\ESKDsectSkip{subsubsection}{0.5cm}{0.1pt}

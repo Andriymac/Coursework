@@ -1,0 +1,38 @@
+\documentclass[14pt,ukrainian,utf8, simple, pointsection,floatsection ]{eskdtext} 
+
+\include{inc/preambula}
+
+\input{inc/title}
+
+\include{inc/ESKDXconfig}
+
+
+\begin{document}
+	\renewcommand{\ESKDcolumnVIIname}{\ESKDfontIII Аркуш}
+	
+	\input{inc/titlepage}
+		
+	\input{chapters/0-1-referat}
+	
+	\ESKDthisStyle{formII}
+	\tableofcontents
+	
+	
+	\input{chapters/0-intro}
+	
+	\input{chapters/1-chap}
+	
+	\input{chapters/2-chap} 
+	
+	\input{chapters/3-chap}
+	
+	\input{chapters/4-chap}
+	
+	\input{chapters/5-conclusion}
+	
+	\input{chapters/6-bibl}
+
+	
+	
+	\input{chapters/7-appendix}
+\end{document}
